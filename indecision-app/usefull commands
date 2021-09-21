@@ -1,0 +1,14 @@
+//Update ES6 to ES5 automatically
+babel path/to/sourceFile --out-file=path/to/outputFile --presets="env,react" --watch
+
+//run node live server
+live-server public
+
+//initialize yarn file
+yarn init
+
+//add moduules to yarn
+yarn add xxx@x.x.x
+
+//install yarn node-modules
+yarn install
