@@ -91,7 +91,7 @@ var templateThree = React.createElement(
 
 // ReactDOM.render(templateThree, appRoot);
 
-var user = {
+var user2 = {
   name: "Asier Callejo",
   age: 24,
   location: "Bilbao, Spain"
@@ -112,38 +112,35 @@ var templateFour = React.createElement(
   React.createElement(
     "h1",
     null,
-    user.name ? user.name : "Anonymous"
+    user2.name ? user2.name : "Anonymous"
   ),
-  user.age && user.age >= 18 && React.createElement(
+  user2.age && user2.age >= 18 && React.createElement(
     "p",
     null,
     "Age: ",
-    user.age
+    user2.age
   ),
-  getLocation(user.location)
+  getLocation(user2.location)
 );
 
 // ReactDOM.render(templateFour, appRoot);
 
-var app = {
+var app2 = {
   title: "Indecision app",
   subtitle: "Put your life in the hands of a computer",
   options: ["One", "Two"]
 };
 
-function getValues(array) {
-  var returnable = [];
-  for (var index = 0; index < array.length; index++) {
-    var element = React.createElement(
+var getValues = function getValues(array) {
+  return array.map(function (element, index) {
+    return React.createElement(
       "li",
-      null,
+      { key: index },
       "Item ",
-      array[index]
+      element
     );
-    returnable.push(element);
-  }
-  return returnable;
-}
+  });
+};
 
 var templateFive = React.createElement(
   "div",
@@ -151,27 +148,110 @@ var templateFive = React.createElement(
   React.createElement(
     "h1",
     null,
-    app.title
+    app2.title
   ),
-  app.subtitle && React.createElement(
+  app2.subtitle && React.createElement(
     "p",
     null,
-    app.subtitle
+    app2.subtitle
   ),
   React.createElement(
     "p",
     null,
-    app.options.length ? "Here are your options" : "No options"
+    app2.options.length ? "Here are your options" : "No options"
   ),
-  app.options.length > 0 && React.createElement(
+  app2.options.length > 0 && React.createElement(
     "div",
     null,
     React.createElement(
       "ol",
       null,
-      getValues(app.options)
+      getValues(app2.options)
     )
   )
 );
 
-ReactDOM.render(templateFive, appRoot);
+// ReactDOM.render(templateFive, appRoot);
+
+var app3 = {
+  title: "Indecision app",
+  subtitle: "Put your life in the hands of a computer",
+  options: ["One", "Two"]
+};
+
+var getValues2 = function getValues2(array) {
+  return array.map(function (element, index) {
+    return React.createElement(
+      "li",
+      { key: index },
+      "Item ",
+      element
+    );
+  });
+};
+
+var removeAll = function removeAll() {
+  app3.options = [];
+  renderTemplateSix();
+};
+
+var onFormSubmit = function onFormSubmit(e) {
+  e.preventDefault();
+  var option = e.target.elements.option.value;
+
+  if (option) {
+    app3.options.push(option);
+    e.target.elements.option.value = "";
+    renderTemplateSix();
+  }
+};
+
+var renderTemplateSix = function renderTemplateSix() {
+  var templateSix = React.createElement(
+    "div",
+    null,
+    React.createElement(
+      "h1",
+      null,
+      app3.title
+    ),
+    app3.subtitle && React.createElement(
+      "p",
+      null,
+      app3.subtitle
+    ),
+    React.createElement(
+      "p",
+      null,
+      app3.options.length ? "Here are your options" : "No options"
+    ),
+    React.createElement(
+      "p",
+      null,
+      app3.options.length
+    ),
+    React.createElement(
+      "button",
+      { onClick: removeAll },
+      "Remove All"
+    ),
+    app3.options.length > 0 && React.createElement(
+      "ol",
+      null,
+      getValues2(app3.options)
+    ),
+    React.createElement(
+      "form",
+      { onSubmit: onFormSubmit },
+      React.createElement("input", { type: "text", name: "option" }),
+      React.createElement(
+        "button",
+        null,
+        "Add Option"
+      )
+    )
+  );
+
+  ReactDOM.render(templateSix, appRoot);
+};
+renderTemplateSix();

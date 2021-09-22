@@ -1,10 +1,10 @@
 console.log("App.js is running!");
-var appRoot = document.getElementById("app");
+const appRoot = document.getElementById("app");
 
 // JSX - JavaScript XML
 
 //Template
-var template = (
+const template = (
   <div>
     <h1>Indecision app</h1>
     <p>This is some info</p>
@@ -18,13 +18,13 @@ var template = (
 // ReactDOM.render(template, appRoot);
 
 //Dinamic template
-var user = {
+const user = {
   name: "Asier Callejo",
   age: 24,
   location: "Bilbao, Spain",
 };
 
-var templateTwo = (
+const templateTwo = (
   <div>
     <h1>{user.name}</h1>
     <p>Age: {user.age}</p>
@@ -35,12 +35,12 @@ var templateTwo = (
 // ReactDOM.render(templateTwo, appRoot);
 
 //Challenge
-var app = {
+const app = {
   title: "Indecision app",
   subtitle: "Put your life in the hands of a computer",
 };
 
-var templateThree = (
+const templateThree = (
   <div>
     <h1>{app.title}</h1>
     <p>{app.subtitle}</p>
@@ -49,7 +49,7 @@ var templateThree = (
 
 // ReactDOM.render(templateThree, appRoot);
 
-var user = {
+const user2 = {
   name: "Asier Callejo",
   age: 24,
   location: "Bilbao, Spain",
@@ -59,42 +59,80 @@ function getLocation(location) {
   return location ? <p>Location: {location}</p> : undefined;
 }
 
-var templateFour = (
+const templateFour = (
   <div>
-    <h1>{user.name ? user.name : "Anonymous"}</h1>
-    {user.age && user.age >= 18 && <p>Age: {user.age}</p>}
-    {getLocation(user.location)}
+    <h1>{user2.name ? user2.name : "Anonymous"}</h1>
+    {user2.age && user2.age >= 18 && <p>Age: {user2.age}</p>}
+    {getLocation(user2.location)}
   </div>
 );
 
 // ReactDOM.render(templateFour, appRoot);
 
-var app = {
+const app2 = {
   title: "Indecision app",
   subtitle: "Put your life in the hands of a computer",
   options: ["One", "Two"],
 };
 
-function getValues(array) {
-  var returnable = [];
-  for (let index = 0; index < array.length; index++) {
-    var element = <li>Item {array[index]}</li>;
-    returnable.push(element);
-  }
-  return returnable;
-}
+const getValues = (array) => array.map((element, index) => <li key={index}>Item {element}</li>);
 
-var templateFive = (
+const templateFive = (
   <div>
-    <h1>{app.title}</h1>
-    {app.subtitle && <p>{app.subtitle}</p>}
-    <p>{app.options.length ? "Here are your options" : "No options"}</p>
-    {app.options.length > 0 && (
+    <h1>{app2.title}</h1>
+    {app2.subtitle && <p>{app2.subtitle}</p>}
+    <p>{app2.options.length ? "Here are your options" : "No options"}</p>
+    {app2.options.length > 0 && (
       <div>
-        <ol>{getValues(app.options)}</ol>
+        <ol>{getValues(app2.options)}</ol>
       </div>
     )}
   </div>
 );
 
-ReactDOM.render(templateFive, appRoot);
+// ReactDOM.render(templateFive, appRoot);
+
+const app3 = {
+  title: "Indecision app",
+  subtitle: "Put your life in the hands of a computer",
+  options: ["One", "Two"],
+};
+
+const getValues2 = (array) => array.map((element, index) => <li key={index}>Item {element}</li>);
+
+const removeAll = () =>{
+  app3.options = [];
+  renderTemplateSix();
+
+}
+
+const onFormSubmit = (e) => {
+  e.preventDefault();
+  const option = e.target.elements.option.value;
+
+  if (option) {
+    app3.options.push(option);
+    e.target.elements.option.value = "";
+    renderTemplateSix();
+  }
+};
+
+const renderTemplateSix = () => {
+  const templateSix = (
+    <div>
+      <h1>{app3.title}</h1>
+      {app3.subtitle && <p>{app3.subtitle}</p>}
+      <p>{app3.options.length ? "Here are your options" : "No options"}</p>
+      <p>{app3.options.length}</p>
+      <button onClick={removeAll}>Remove All</button>
+      {app3.options.length > 0 && <ol>{getValues2(app3.options)}</ol>}
+      <form onSubmit={onFormSubmit}>
+        <input type="text" name="option" />
+        <button>Add Option</button>
+      </form>
+    </div>
+  );
+
+  ReactDOM.render(templateSix, appRoot);
+};
+renderTemplateSix();

@@ -12,3 +12,7 @@ yarn add xxx@x.x.x
 
 //install yarn node-modules
 yarn install
+
+
+babel .\src\playground\app.js --out-file=public/scripts/app.js --presets="env,react" --watch
+babel .\src\app.js --out-file=public/scripts/app.js --presets="env,react" --watch
